@@ -2,23 +2,23 @@ import requests
 import urllib
 
 URL = 'https://raw.githubusercontent.com/mledoze/countries/master/countries.json'
-TRANSLATIONS = ['rus', 'deu', 'fra', 'en'] #все не брал т.к. было лень
+TRANSLATIONS = ['rus', 'deu', 'fra', 'eng'] #все не брал т.к. было лень
 
 
-def create_wiki_url(name, translation='en'):
+def create_wiki_url(name, translation='eng'):
     name = urllib.parse.quote("_".join(name.split()))
     url = f'https://{translation[:-1]}.wikipedia.org/wiki/{name}'
     return url
 
 
 def get_name(country, translation):
-    if translation == 'en':
+    if translation == 'eng':
         return country['name']['official']
     return country['translations'][translation]['common']
 
 
 class CountryIterator:
-    def __init__(self, countries, translation='en'):
+    def __init__(self, countries, translation='eng'):
         self.countries = countries
         self.cursor = 0
         self.limit = len(countries)
@@ -37,7 +37,7 @@ class CountryIterator:
 
 
 class CountriesIterable:
-    def __init__(self, url=URL, translation='en'):
+    def __init__(self, url=URL, translation='eng'):
         if translation not in TRANSLATIONS:
             raise ValueError(f'не найден язык {translation} в {str(TRANSLATIONS)}')
         self.translation = translation
