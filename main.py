@@ -13,7 +13,7 @@ def countries_exe(file):
 def md_gen_exe(file):
     generator = md_gen(file)
     for i in generator:
-        print(i)
+        print(i.digest())
 
 
 if __name__ == "__main__":
